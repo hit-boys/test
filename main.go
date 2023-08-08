@@ -44,8 +44,12 @@ func convert(inst string) (int, bool, error)  {
 	return x, what, nil
 }
 
-func Print(ans int, chek bool){
+func Print(ans int, chek bool) error {
     if(chek){
+        if(ans <= 0){
+            err := errors.New("there is no number in the Roman system")
+            return err
+        }
         var mp = map[int]string{100 : "C", 90 : "XC", 50: "L", 40 : "XL", 10 : "X", 9 : "IX", 5 : "V", 4 : "IV", 1 : "I"}
         vec := [9]int{1, 4, 5, 9, 10, 40, 50, 90, 100}
         result := ""
@@ -61,10 +65,10 @@ func Print(ans int, chek bool){
             }
         }
         fmt.Println(result)
-        return
+        return nil
     }
     fmt.Println(ans)
-    return
+    return nil
 }
 
 func main() {
@@ -100,18 +104,35 @@ func main() {
     
     switch vector[1]{
         case "+":
-            Print(num1 + num2, num1_chek)
+            err := Print(num1 + num2, num1_chek)
+            if (err != nil){
+                fmt.Println(err)
+               return
+            }
         case "-":
-            Print(num1 - num2, num1_chek)
+            err := Print(num1 - num2, num1_chek)
+            if (err != nil){
+                fmt.Println(err)
+               return
+            }
         case "/":
-            Print(num1 / num2, num1_chek)
+            err := Print(num1 / num2, num1_chek)
+            if (err != nil){
+                fmt.Println(err)
+               return
+            }
         case "*":
-            Print(num1 * num2, num1_chek)
+            err := Print(num1 * num2, num1_chek)
+            if (err != nil){
+                fmt.Println(err)
+               return
+            }
         default:
             err := errors.New("incorrect sign")
             fmt.Println(err)
 	        return
 
     }
+    
     }
 }
